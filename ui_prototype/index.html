@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Royal Treasure Casino - UI/UX Mobile Prototype</title>
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    :root {
+      --gold-primary: #FFD700;
+      --gold-light: #FFF3B0;
+      --gold-bright: #FFE082;
+      --gold-accent: #F5B014;
+      --gold-dark: #B87B00;
+      --gold-metallic: linear-gradient(135deg, #FFF3A1 0%, #FFD700 50%, #D49B28 100%);
+      --gold-btn: linear-gradient(180deg, #FFE066 0%, #FF9E00 100%);
+      --bg-dark: #070B16;
+      --bg-primary: #0A0F1D;
+      --bg-secondary: #0F172A;
+      --bg-card: #141E34;
+      --bg-sidebar: #0B1120;
+      --bg-bottom-nav: #080D1A;
+      --border-gold: rgba(255, 215, 0, 0.45);
+      --border-gold-subtle: rgba(204, 167, 59, 0.25);
+      --win-green: #00E676;
+      --hot-red: #FF2A42;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #03060c;
+      color: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      overflow-x: hidden;
+    }
+
+    /* Device Mockup Container */
+    .device-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 410px;
+      height: 844px;
+      background: var(--bg-primary);
+      border-radius: 46px;
+      border: 3.5px solid #2A3654;
+      box-shadow: 0 0 0 1px #151D30, 0 25px 60px -15px rgba(0,0,0,0.9), 0 0 40px rgba(255, 215, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Notch & Status Bar */
+    .status-bar {
+      height: 44px;
+      padding: 12px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--bg-dark);
+      z-index: 50;
+    }
+    .status-bar-notch {
+      width: 110px;
+      height: 22px;
+      background: #000;
+      border-radius: 20px;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Top Casino Header */
+    .casino-header {
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-gold-subtle);
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--gold-metallic);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+      color: #000;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .brand-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--gold-bright);
+      letter-spacing: 1px;
+      line-height: 1.1;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    .brand-text span {
+      font-size: 8px;
+      color: var(--gold-dark);
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    /* Coin Balance Counter */
+    .coin-balance-pill {
+      background: rgba(7, 11, 22, 0.9);
+      border: 1.2px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 3px 6px 3px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.25);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .coin-balance-pill:active {
+      transform: scale(0.96);
+    }
+    .coin-icon {
+      width: 18px;
+      height: 18px;
+      background: var(--gold-metallic);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      box-shadow: 0 0 6px var(--gold-primary);
+    }
+    .coin-digits {
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--gold-bright);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .coin-add-btn {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-btn);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+    }
+
+    /* VIP Badge */
+    .vip-pill {
+      background: linear-gradient(135deg, #FFD700, #FF8F00);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    /* Sign In / Sign Up Bar */
+    .auth-bar {
+      background: var(--bg-secondary);
+      border: 1.2px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+      transition: all 0.2s;
+    }
+    .auth-bar:hover {
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.4);
+    }
+    .auth-bar span {
+      color: var(--gold-bright);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    /* Live Ticker Bar */
+    .ticker-bar {
+      height: 32px;
+      margin: 4px 10px;
+      background: rgba(7, 11, 22, 0.92);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+      font-size: 11px;
+      color: #F1F5F9;
+      overflow: hidden;
+    }
+    .ticker-speaker {
+      color: var(--gold-primary);
+      font-size: 16px;
+    }
+    .ticker-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+    .ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--win-green);
+      box-shadow: 0 0 6px var(--win-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Daily Reward Hero Carousel Banner */
+    .hero-banner {
+      height: 125px;
+      margin: 4px 10px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0B2149 0%, #1E3A8A 50%, #0F172A 100%);
+      border: 1.5px solid rgba(255, 215, 0, 0.7);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      padding: 10px 14px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-content {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .hero-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(255, 215, 0, 0.2);
+      border: 1px solid var(--gold-primary);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--gold-bright);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+    }
+    .hero-amount {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--gold-bright);
+      text-shadow: 0 0 10px rgba(212, 155, 40, 0.8);
+      letter-spacing: 0.5px;
+    }
+    .hero-subtitle {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 700;
+    }
+    .hero-btn {
+      margin-top: 4px;
+      align-self: flex-start;
+      background: var(--gold-btn);
+      border: 1px solid #FFF7C2;
+      border-radius: 14px;
+      padding: 4px 12px;
+      color: #000;
+      font-size: 10px;
+      font-weight: 900;
+      box-shadow: 0 2px 6px rgba(212, 155, 40, 0.6);
+      cursor: pointer;
+    }
+    .hero-trophy {
+      font-size: 64px;
+      color: var(--gold-bright);
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
+      animation: float 3s ease-in-out infinite;
+    }
+    .hero-dots {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+    }
+    .hero-dot {
+      width: 5px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.3);
+    }
+    .hero-dot.active {
+      width: 14px;
+      background: var(--gold-primary);
+    }
+
+    /* Filter Tabs Bar (All Game, Favorite, Recent) */
+    .filter-tabs {
+      display: flex;
+      padding: 4px 10px;
+      gap: 6px;
+    }
+    .filter-tab {
+      flex: 1;
+      padding: 6px 0;
+      background: rgba(7, 11, 22, 0.5);
+      border: 0.8px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #94A3B8;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-tab.active {
+      background: linear-gradient(180deg, #263B66 0%, #132242 100%);
+      border-color: var(--gold-primary);
+      color: #FFF;
+      font-weight: 800;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.25);
+    }
+    .filter-tab .material-symbols-rounded {
+      font-size: 14px;
+    }
+
+    /* Main Area: Category Rail + Game Grid */
+    .main-lobby {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Left Vertical Category Rail */
+    .category-rail {
+      width: 68px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-gold-subtle);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px 4px;
+    }
+    .category-rail::-webkit-scrollbar {
+      display: none;
+    }
+    .cat-item {
+      padding: 6px 2px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      border: 0.8px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-item.active {
+      background: linear-gradient(180deg, #2C3E6B 0%, #16203D 100%);
+      border-color: var(--gold-primary);
+      box-shadow: 0 2px 6px rgba(255, 215, 0, 0.25);
+    }
+    .cat-icon-wrap {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: #121B2F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+    }
+    .cat-item.active .cat-icon-wrap {
+      background: #1E293B;
+      border: 1px solid var(--gold-bright);
+    }
+    .cat-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #94A3B8;
+    }
+    .cat-item.active .cat-label {
+      color: var(--gold-bright);
+      font-weight: 900;
+    }
+
+    /* Right Game Grid */
+    .games-viewport {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 8px;
+    }
+    .games-viewport::-webkit-scrollbar {
+      width: 3px;
+    }
+    .games-viewport::-webkit-scrollbar-thumb {
+      background: rgba(255, 215, 0, 0.3);
+      border-radius: 2px;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    /* Game Card */
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .game-card:active {
+      transform: scale(0.94);
+    }
+    .game-thumb {
+      width: 100%;
+      height: 98px;
+      border-radius: 12px;
+      border: 1.2px solid rgba(255, 215, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    }
+    .game-thumb.hot-border {
+      border-color: #FF5252;
+    }
+    .game-badge {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: linear-gradient(135deg, #FF3D00, #DD2C00);
+      color: #FFF;
+      font-size: 7px;
+      font-weight: 900;
+      padding: 1px 4px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+    .game-badge.new {
+      background: var(--win-green);
+      color: #000;
+    }
+    .game-badge.mult {
+      background: #7C3AED;
+    }
+    .game-fav-star {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      background: rgba(0,0,0,0.5);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+    }
+    .game-fav-star.active {
+      color: var(--gold-bright);
+    }
+    .game-icon-center {
+      font-size: 32px;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
+    }
+    .game-provider {
+      background: rgba(0,0,0,0.6);
+      font-size: 7.5px;
+      color: rgba(255,255,255,0.8);
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+    .game-name {
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #FFF;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* Floating 24/7 VIP Support */
+    .floating-support {
+      position: absolute;
+      right: 14px;
+      bottom: 74px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #1E2D4A 0%, #0C1425 100%);
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 60;
+      animation: pulseGlow 2s infinite;
+    }
+    .support-badge {
+      background: var(--gold-primary);
+      color: #000;
+      font-size: 7.5px;
+      font-weight: 900;
+      padding: 0 3px;
+      border-radius: 4px;
+      margin-top: -2px;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      height: 64px;
+      background: var(--bg-bottom-nav);
+      border-top: 1.2px solid var(--border-gold-subtle);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: relative;
+      z-index: 50;
+      padding: 0 4px;
+    }
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      color: #94A3B8;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 600;
+      width: 60px;
+      transition: all 0.2s;
+    }
+    .nav-btn.active {
+      color: var(--gold-bright);
+      font-weight: 900;
+    }
+    .nav-btn .material-symbols-rounded {
+      font-size: 22px;
+    }
+
+    /* Center Special Floating Lucky Wheel Button ("Get ₹200") */
+    .center-wheel-btn {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 55;
+    }
+    .wheel-disc {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--gold-metallic);
+      border: 2.5px solid #FFF7C2;
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: rotateSlow 12s linear infinite;
+    }
+    .wheel-inner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-bright);
+      font-size: 24px;
+    }
+    .wheel-tag {
+      background: var(--gold-primary);
+      color: #000;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 6px;
+      margin-top: 1px;
+      letter-spacing: 0.2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Modal Sheet Styling */
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .modal-backdrop.show {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-sheet {
+      width: 100%;
+      background: #141E34;
+      border-top: 2px solid var(--gold-primary);
+      border-radius: 26px 26px 0 0;
+      padding: 16px 18px 24px;
+      max-height: 85%;
+      overflow-y: auto;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-backdrop.show .modal-sheet {
+      transform: translateY(0);
+    }
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 2px;
+      margin: 0 auto 14px;
+    }
+
+    /* Playable Game Screen Modal */
+    .game-screen-modal {
+      position: absolute;
+      inset: 0;
+      background: #0A0206;
+      z-index: 90;
+      display: none;
+      flex-direction: column;
+    }
+    .game-screen-modal.show {
+      display: flex;
+    }
+    .game-screen-header {
+      background: #160309;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 42, 66, 0.3);
+    }
+
+    /* Aviator Flight Arena */
+    .aviator-canvas-wrap {
+      flex: 1;
+      position: relative;
+      background: radial-gradient(circle at 80% 20%, #2D0512 0%, #0A0206 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .multiplier-display {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 52px;
+      font-weight: 900;
+      color: #FFF;
+      text-shadow: 0 0 20px rgba(255, 42, 66, 0.8);
+    }
+    .multiplier-display.win {
+      color: var(--win-green);
+      text-shadow: 0 0 20px var(--win-green);
+    }
+    .aviator-plane {
+      position: absolute;
+      bottom: 20%;
+      left: 15%;
+      font-size: 42px;
+      color: #FF2A42;
+      transition: all 0.1s linear;
+      filter: drop-shadow(0 0 10px #FF3D00);
+    }
+
+    /* Slots Machine */
+    .slot-cabinet {
+      background: linear-gradient(180deg, #2A1F45 0%, #150F28 100%);
+      border: 3px solid var(--gold-primary);
+      border-radius: 22px;
+      padding: 14px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+      margin: 10px 0;
+    }
+    .slot-reels {
+      display: flex;
+      justify-content: space-around;
+      background: #000;
+      border: 2px solid #D49B28;
+      border-radius: 14px;
+      padding: 10px 4px;
+    }
+    .slot-reel {
+      width: 78px;
+      height: 85px;
+      background: linear-gradient(180deg, #1E2538 0%, #121724 100%);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+    }
+
+    /* Golden Action Button */
+    .btn-gold {
+      background: var(--gold-btn);
+      border: 1.5px solid #FFF7C2;
+      border-radius: 24px;
+      padding: 12px 20px;
+      color: #261600;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 3px 10px rgba(212, 155, 40, 0.6);
+      transition: transform 0.1s;
+    }
+    .btn-gold:active {
+      transform: scale(0.96);
+    }
+
+    /* Fullscreen Coin Rain Canvas */
+    #coinCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* Keyframes */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+      50% { box-shadow: 0 0 22px rgba(255, 215, 0, 0.7); }
+    }
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Responsive Controls Bar on Desktop */
+    .demo-controls-bar {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #111827;
+      padding: 8px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      color: #94A3B8;
+    }
+    .demo-controls-bar button {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-gold-subtle);
+      color: var(--gold-bright);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE DEVICE MOCKUP -->
+  <div class="device-wrapper">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>18:20</span>
+      <div class="status-bar-notch"></div>
+      <div style="display:flex; gap: 4px; align-items: center;">
+        <span class="material-symbols-rounded" style="font-size: 14px;">signal_cellular_alt</span>
+        <span class="material-symbols-rounded" style="font-size: 14px;">wifi</span>
+        <span class="material-symbols-rounded" style="font-size: 16px;">battery_full</span>
+      </div>
+    </div>
+
+    <!-- Top Casino Header -->
+    <div class="casino-header">
+      <div class="header-top-row">
+        <!-- Logo -->
+        <div class="brand-logo">
+          <div class="brand-icon">
+            <span class="material-symbols-rounded">shield</span>
+          </div>
+          <div class="brand-text">
+            <h1>ROYAL TREASURE</h1>
+            <span>PREMIER CASINO CLUB</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <!-- Animated Coin Balance -->
+          <div class="coin-balance-pill" onclick="openStoreModal()">
+            <div class="coin-icon">🪙</div>
+            <span class="coin-digits" id="headerCoinBalance">25,480.00</span>
+            <div class="coin-add-btn">+</div>
+          </div>
+
+          <!-- Sound Icon -->
+          <div style="cursor: pointer;" onclick="toggleSoundEffect(this)">
+            <span class="material-symbols-rounded" style="font-size: 20px; color: var(--gold-primary);">volume_up</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sign In / Sign Up Bar (Matches Reference Images 1, 2, 3) -->
+      <div class="auth-bar" id="authQuickBar" onclick="openAuthModal()">
+        <span class="material-symbols-rounded" style="font-size: 16px; color: var(--gold-primary);">person</span>
+        <span>Sign In / Sign Up</span>
+        <span class="material-symbols-rounded" style="font-size: 16px; color: var(--gold-primary);">chevron_right</span>
+      </div>
+    </div>
+
+    <!-- Live Ticker Bar (Matches Reference Images 1, 2, 3) -->
+    <div class="ticker-bar">
+      <span class="material-symbols-rounded ticker-speaker">volume_up</span>
+      <span class="ticker-text" id="liveTickerText">player_7842 successfully withdraw ₹ 2,000</span>
+      <div class="ticker-dot"></div>
+    </div>
+
+    <!-- Hero Jackpot Carousel Banner (Matches Reference Image 3) -->
+    <div class="hero-banner">
+      <div class="hero-content">
+        <span class="hero-badge">DAILY REWARD UP TO</span>
+        <span class="hero-amount">₹ 1,000,000+</span>
+        <span class="hero-subtitle">PLAY & WIN JACKPOT FOR FREE</span>
+        <button class="hero-btn" onclick="openLuckyWheel()">SPIN & WIN</button>
+      </div>
+      <div class="hero-trophy">🏆</div>
+      <div class="hero-dots">
+        <div class="hero-dot active"></div>
+        <div class="hero-dot"></div>
+        <div class="hero-dot"></div>
+      </div>
+    </div>
+
+    <!-- Filter Tabs Bar (All Game, Favorite, Recent) -->
+    <div class="filter-tabs">
+      <div class="filter-tab active" onclick="switchFilter(this, 'all')">
+        <span class="material-symbols-rounded">style</span>
+        All Game
+      </div>
+      <div class="filter-tab" onclick="switchFilter(this, 'fav')">
+        <span class="material-symbols-rounded">favorite</span>
+        Favorite
+      </div>
+      <div class="filter-tab" onclick="switchFilter(this, 'recent')">
+        <span class="material-symbols-rounded">history</span>
+        Recent
+      </div>
+    </div>
+
+    <!-- Main Lobby Area (Left Category Rail + Right Games Grid) -->
+    <div class="main-lobby" id="mainLobbyArea">
+      <!-- Left Vertical Category Rail (Matches Reference Images 1, 2, 3) -->
+      <div class="category-rail">
+        <div class="cat-item active" onclick="switchCategory(this, 'Hot')">
+          <div class="cat-icon-wrap" style="color: #FF5722;">🔥</div>
+          <span class="cat-label">Hot</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Casino')">
+          <div class="cat-icon-wrap" style="color: #FFC107;">🎲</div>
+          <span class="cat-label">Casino</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Slots')">
+          <div class="cat-icon-wrap" style="color: #E91E63;">🎰</div>
+          <span class="cat-label">Slots</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Crash')">
+          <div class="cat-icon-wrap" style="color: #00E5FF;">🚀</div>
+          <span class="cat-label">Crash</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Fishing')">
+          <div class="cat-icon-wrap" style="color: #29B6F6;">🎣</div>
+          <span class="cat-label">Fishing</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Games')">
+          <div class="cat-icon-wrap" style="color: #AB47BC;">🎮</div>
+          <span class="cat-label">Games</span>
+        </div>
+        <div class="cat-item" onclick="switchCategory(this, 'Sports')">
+          <div class="cat-icon-wrap" style="color: #66BB6A;">🏏</div>
+          <span class="cat-label">Sports</span>
+        </div>
+      </div>
+
+      <!-- Right Games Viewport -->
+      <div class="games-viewport" id="gamesViewport">
+        <div class="games-grid" id="gamesGrid">
+          <!-- Dynamically Rendered Game Cards -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating 24/7 VIP Customer Support Button (Matches Ref 1, 2, 3) -->
+    <div class="floating-support" onclick="openSupportModal()">
+      <span class="material-symbols-rounded" style="color: var(--gold-bright); font-size: 22px;">headset_mic</span>
+      <span class="support-badge">24/7</span>
+    </div>
+
+    <!-- Bottom Navigation Bar (Matches Ref 1, 2, 3) -->
+    <div class="bottom-nav">
+      <!-- 0: Home -->
+      <div class="nav-btn active" onclick="switchBottomNav(0)">
+        <span class="material-symbols-rounded">grid_view</span>
+        <span>Home</span>
+      </div>
+
+      <!-- 1: Promotion -->
+      <div class="nav-btn" onclick="switchBottomNav(1)">
+        <span class="material-symbols-rounded">featured_seasonal_and_gifts</span>
+        <span>Promotion</span>
+      </div>
+
+      <!-- Center Special Floating Lucky Wheel Button ("Get ₹200") -->
+      <div class="center-wheel-btn" onclick="openLuckyWheel()">
+        <div class="wheel-disc">
+          <div class="wheel-inner">
+            <span class="material-symbols-rounded" style="font-size: 26px;">casino</span>
+          </div>
+        </div>
+        <div class="wheel-tag">Get ₹200</div>
+      </div>
+
+      <!-- Spacer for center wheel -->
+      <div style="width: 44px;"></div>
+
+      <!-- 2: Earn Money -->
+      <div class="nav-btn" onclick="switchBottomNav(2)">
+        <span class="material-symbols-rounded">send</span>
+        <span>Earn Money</span>
+      </div>
+
+      <!-- 3: Account -->
+      <div class="nav-btn" onclick="switchBottomNav(3)">
+        <span class="material-symbols-rounded">person</span>
+        <span>Account</span>
+      </div>
+    </div>
+
+    <!-- PLAYABLE GAME SCREEN OVERLAY: AVIATOR PRO -->
+    <div class="game-screen-modal" id="aviatorGameModal">
+      <div class="game-screen-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="material-symbols-rounded" style="color: #FF2A42; cursor:pointer;" onclick="closeGameModal()">arrow_back</span>
+          <span style="font-weight:900; color: #FFF; font-size:14px; letter-spacing:1px;">AVIATOR PRO</span>
+          <span style="background:#FF2A42; color:#FFF; font-size:8px; font-weight:900; padding:1px 4px; border-radius:3px;">CRASH</span>
+        </div>
+        <div class="coin-balance-pill" style="padding: 2px 6px;">
+          <span class="coin-digits" id="aviatorBalance">25,480</span>
+        </div>
+      </div>
+
+      <!-- Previous Multipliers History Ribbon -->
+      <div style="height:26px; background:#140208; display:flex; gap:6px; padding:3px 10px; overflow-x:auto;">
+        <span style="background:#2A1119; color:#FFF; font-size:9px; padding:2px 6px; border-radius:8px; font-weight:bold;">1.82x</span>
+        <span style="background:#047857; color:#6EE7B7; font-size:9px; padding:2px 6px; border-radius:8px; font-weight:bold;">3.45x</span>
+        <span style="background:#7C3AED; color:#FFF; font-size:9px; padding:2px 6px; border-radius:8px; font-weight:bold; border:1px solid #FFD700;">14.80x</span>
+        <span style="background:#047857; color:#6EE7B7; font-size:9px; padding:2px 6px; border-radius:8px; font-weight:bold;">2.10x</span>
+        <span style="background:#2A1119; color:#FFF; font-size:9px; padding:2px 6px; border-radius:8px; font-weight:bold;">1.15x</span>
+      </div>
+
+      <!-- Flight Arena Canvas -->
+      <div class="aviator-canvas-wrap">
+        <div class="multiplier-display" id="aviatorMultiplier">1.00x</div>
+        <div id="aviatorStatusSubtitle" style="color:rgba(255,255,255,0.7); font-size:12px; font-weight:bold; margin-top:4px;">NEXT ROUND STARTING...</div>
+        <div class="aviator-plane" id="aviatorJet">✈️</div>
+      </div>
+
+      <!-- Live Players Bets Ticker -->
+      <div style="height:32px; background:#100207; display:flex; gap:8px; align-items:center; padding:0 12px; font-size:10px; color:#94A3B8; border-top:1px solid rgba(255,255,255,0.1);">
+        <span>🔴 Live Bets:</span>
+        <span style="background:#064E3B; color:#6EE7B7; padding:1px 6px; border-radius:4px;">Tiger99: 🪙500 (2.4x)</span>
+        <span style="background:rgba(255,255,255,0.06); padding:1px 6px; border-radius:4px;">Alex_Pro: 🪙100</span>
+      </div>
+
+      <!-- Betting Console -->
+      <div style="background:#1A040B; padding:12px; border-top:1.5px solid #FF2A42;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <div style="display:flex; gap:6px;">
+            <button onclick="setAviatorBet(20)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">20</button>
+            <button onclick="setAviatorBet(50)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">50</button>
+            <button onclick="setAviatorBet(100)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">100</button>
+            <button onclick="setAviatorBet(500)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">500</button>
+          </div>
+          <span style="color:var(--gold-bright); font-size:11px; font-weight:bold;">Bet: 🪙 <span id="aviatorBetDisplay">50</span></span>
+        </div>
+        <button id="aviatorActionBtn" onclick="handleAviatorAction()" style="width:100%; height:46px; background:linear-gradient(135deg, #FF2A42, #B7091B); border:1px solid #FFF; border-radius:12px; color:#FFF; font-weight:900; font-size:16px; cursor:pointer; box-shadow:0 0 14px rgba(255, 42, 66, 0.5);">
+          PLACE BET (🪙 50)
+        </button>
+      </div>
+    </div>
+
+    <!-- PLAYABLE GAME SCREEN OVERLAY: ROYAL 777 SLOTS -->
+    <div class="game-screen-modal" id="slotsGameModal">
+      <div class="game-screen-header" style="background:#131728; border-color:var(--gold-primary);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="material-symbols-rounded" style="color: var(--gold-primary); cursor:pointer;" onclick="closeGameModal()">arrow_back</span>
+          <span style="font-weight:900; color: var(--gold-bright); font-size:14px; letter-spacing:1px;">ROYAL 777 SLOTS</span>
+        </div>
+        <div class="coin-balance-pill" style="padding: 2px 6px;">
+          <span class="coin-digits" id="slotsBalance">25,480</span>
+        </div>
+      </div>
+
+      <div style="flex:1; padding:16px; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#0B0E1B;">
+        <div style="color:var(--gold-bright); font-size:12px; font-weight:900; margin-bottom:8px; letter-spacing:1px;">PROGRESSIVE JACKPOT: ₹ 2,845,910</div>
+        
+        <!-- Slot Cabinet -->
+        <div class="slot-cabinet" style="width:100%; max-width:320px;">
+          <div class="slot-reels">
+            <div class="slot-reel" id="slotReel1">👑</div>
+            <div class="slot-reel" id="slotReel2">💎</div>
+            <div class="slot-reel" id="slotReel3">👑</div>
+          </div>
+        </div>
+
+        <div id="slotWinStatus" style="color:var(--win-green); font-size:13px; font-weight:900; height:20px; margin:8px 0;">SPIN TO WIN ROYAL JACKPOT!</div>
+
+        <!-- Controls -->
+        <div style="width:100%; max-width:320px; display:flex; gap:10px; margin-top:10px;">
+          <button onclick="spinSlots()" class="btn-gold" style="flex:1; height:48px;" id="slotSpinBtn">
+            SPIN (🪙 20)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAYABLE GAME SCREEN OVERLAY: ROYAL LUDO CASH -->
+    <div class="game-screen-modal" id="ludoGameModal">
+      <div class="game-screen-header" style="background:#131E35; border-color:var(--gold-primary);">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="material-symbols-rounded" style="color: var(--gold-primary); cursor:pointer;" onclick="closeGameModal()">arrow_back</span>
+          <span style="font-weight:900; color: var(--gold-bright); font-size:14px; letter-spacing:1px;">ROYAL LUDO CASH</span>
+          <span style="background:var(--gold-primary); color:#000; font-size:8px; font-weight:900; padding:1px 4px; border-radius:3px;">2X WIN</span>
+        </div>
+        <div class="coin-balance-pill" style="padding: 2px 6px;">
+          <span class="coin-digits" id="ludoBalance">25,480</span>
+        </div>
+      </div>
+
+      <!-- Scoreboard Ribbon -->
+      <div style="background:#0F172A; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-gold-subtle);">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:18px;">🔴</span>
+          <div>
+            <div style="font-size:9px; color:#FFF; font-weight:bold;">YOU (RED)</div>
+            <div style="font-size:12px; font-weight:900; color:#FF3366;"><span id="ludoRedScore">0</span> / 30 PTS</div>
+          </div>
+        </div>
+
+        <div style="background:var(--gold-metallic); border-radius:10px; padding:2px 8px; text-align:center;">
+          <div style="font-size:7.5px; font-weight:900; color:#000;">PRIZE POOL</div>
+          <div style="font-size:11px; font-weight:900; color:#000;">🪙 <span id="ludoPrizePool">98</span></div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:6px;">
+          <div style="text-align:right;">
+            <div style="font-size:9px; color:#FFF; font-weight:bold;">VIP BOT (GREEN)</div>
+            <div style="font-size:12px; font-weight:900; color:#00E676;"><span id="ludoGreenScore">0</span> / 30 PTS</div>
+          </div>
+          <span style="font-size:18px;">🟢</span>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div style="background:#070B16; padding:6px 12px; font-size:11px; color:var(--gold-bright); font-weight:bold; text-align:center; border-bottom:1px solid rgba(255,255,255,0.06);" id="ludoStatusMsg">
+        Choose your bet and start the 2-Player duel!
+      </div>
+
+      <!-- Ludo Board Arena -->
+      <div style="flex:1; padding:12px; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#0A0F1D; overflow-y:auto;">
+        <div style="width:260px; height:260px; background:#0B1120; border:2.5px solid var(--gold-primary); border-radius:18px; position:relative; box-shadow:0 0 16px rgba(255,215,0,0.3); display:flex; align-items:center; justify-content:center;">
+          <!-- Quadrants -->
+          <div style="position:absolute; top:8px; left:8px; width:80px; height:80px; background:rgba(30,58,138,0.8); border:1px solid var(--gold-primary); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#FFF; font-size:9px; font-weight:bold;">BLUE</div>
+          <div style="position:absolute; top:8px; right:8px; width:80px; height:80px; background:rgba(4,120,87,0.8); border:1px solid var(--gold-primary); border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:9px; font-weight:bold; color:#FFF;">
+            GREEN
+            <span style="font-size:22px; margin-top:4px;">🟢</span>
+          </div>
+          <div style="position:absolute; bottom:8px; left:8px; width:80px; height:80px; background:rgba(153,27,27,0.8); border:1px solid var(--gold-primary); border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:9px; font-weight:bold; color:#FFF;">
+            RED (YOU)
+            <span style="font-size:22px; margin-top:4px;">🔴</span>
+          </div>
+          <div style="position:absolute; bottom:8px; right:8px; width:80px; height:80px; background:rgba(180,83,9,0.8); border:1px solid var(--gold-primary); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#FFF; font-size:9px; font-weight:bold;">GOLD</div>
+
+          <!-- Center Crown -->
+          <div style="width:62px; height:62px; border-radius:50%; background:var(--gold-metallic); border:2px solid #FFFDE7; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 12px rgba(255,215,0,0.6);">
+            <span style="font-size:24px;">👑</span>
+            <span style="font-size:8px; font-weight:900; color:#000;">WIN</span>
+          </div>
+
+          <!-- Progress Markers -->
+          <div style="position:absolute; bottom:96px; display:flex; gap:8px;">
+            <span style="background:rgba(0,0,0,0.8); color:#FF3366; font-size:9px; font-weight:bold; padding:1px 6px; border-radius:6px; border:1px solid #FF3366;">🔴 Pos: <span id="ludoRedPos">0</span></span>
+            <span style="background:rgba(0,0,0,0.8); color:#00E676; font-size:9px; font-weight:bold; padding:1px 6px; border-radius:6px; border:1px solid #00E676;">🟢 Pos: <span id="ludoGreenPos">0</span></span>
+          </div>
+        </div>
+
+        <!-- 3D Dice Console -->
+        <div style="width:100%; max-width:280px; background:#141E34; border:1px solid var(--border-gold-subtle); border-radius:14px; padding:10px; margin-top:10px; display:flex; align-items:center; justify-content:space-around;">
+          <div id="ludoDiceWidget" onclick="rollLudoPlayerDice()" style="width:58px; height:58px; background:linear-gradient(135deg, #FFF9C4, #FFD54F); border:2px solid #FFFDE7; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 0 14px rgba(255,215,0,0.5); cursor:pointer; transition:transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);">
+            🎲
+          </div>
+          <div>
+            <div style="font-size:11px; font-weight:900; color:var(--gold-bright);" id="ludoTurnLabel">YOUR TURN TO ROLL</div>
+            <div style="font-size:9px; color:#94A3B8; margin-top:2px;">• Roll 6 for extra turn<br>• Knock out to gain +10 pts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Controls -->
+      <div style="background:#131A30; padding:12px; border-top:1.5px solid var(--gold-primary);">
+        <div id="ludoBetSelectorsRow" style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <button onclick="setLudoBet(20)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">20</button>
+          <button onclick="setLudoBet(50)" style="background:var(--gold-primary); border:1px solid #FFF; color:#000; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;" id="ludoBetBtn50">50</button>
+          <button onclick="setLudoBet(100)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">100</button>
+          <button onclick="setLudoBet(250)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">250</button>
+          <button onclick="setLudoBet(500)" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#FFF; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:bold; cursor:pointer;">500</button>
+        </div>
+        <button id="ludoActionBtn" onclick="handleLudoAction()" class="btn-gold" style="width:100%; height:46px;">
+          START LUDO DUEL (🪙 50)
+        </button>
+      </div>
+    </div>
+
+    <!-- COIN STORE / RECHARGE MODAL -->
+    <div class="modal-backdrop" id="storeModal">
+      <div class="modal-sheet">
+        <div class="modal-handle" onclick="closeStoreModal()"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="material-symbols-rounded" style="color:var(--gold-primary); font-size:24px;">savings</span>
+            <span style="font-weight:900; color:var(--gold-bright); font-size:16px;">ROYAL COIN VAULT</span>
+          </div>
+          <span class="material-symbols-rounded" style="cursor:pointer; color:#94A3B8;" onclick="closeStoreModal()">close</span>
+        </div>
+
+        <!-- Packages -->
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+          <div onclick="selectPackage(99, 1200, this)" class="pkg-card" style="border:1.5px solid var(--border-gold-subtle); background:#0F172A; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+            <div>
+              <div style="font-weight:bold; font-size:13px; color:#FFF;">Starter Chest</div>
+              <div style="color:var(--gold-bright); font-size:12px; font-weight:bold;">🪙 1,000 + 200 Bonus</div>
+            </div>
+            <button style="background:var(--gold-btn); border:none; border-radius:8px; padding:6px 14px; font-weight:900; color:#000; cursor:pointer;">₹ 99</button>
+          </div>
+
+          <div onclick="selectPackage(499, 6500, this)" class="pkg-card selected" style="border:2px solid var(--gold-primary); background:#1E2D4D; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; box-shadow:0 0 12px rgba(255,215,0,0.3);">
+            <div>
+              <div style="font-weight:bold; font-size:13px; color:#FFF;">Treasure Sack <span style="background:#FF2A42; color:#FFF; font-size:8px; padding:1px 4px; border-radius:3px;">POPULAR</span></div>
+              <div style="color:var(--gold-bright); font-size:12px; font-weight:bold;">🪙 5,000 + 1,500 Bonus</div>
+            </div>
+            <button style="background:var(--gold-btn); border:none; border-radius:8px; padding:6px 14px; font-weight:900; color:#000; cursor:pointer;">₹ 499</button>
+          </div>
+
+          <div onclick="selectPackage(1499, 24000, this)" class="pkg-card" style="border:1.5px solid var(--border-gold-subtle); background:#0F172A; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+            <div>
+              <div style="font-weight:bold; font-size:13px; color:#FFF;">Royal Vault <span style="background:var(--gold-primary); color:#000; font-size:8px; padding:1px 4px; border-radius:3px;">VIP DEAL</span></div>
+              <div style="color:var(--gold-bright); font-size:12px; font-weight:bold;">🪙 18,000 + 6,000 Bonus</div>
+            </div>
+            <button style="background:var(--gold-btn); border:none; border-radius:8px; padding:6px 14px; font-weight:900; color:#000; cursor:pointer;">₹ 1,499</button>
+          </div>
+        </div>
+
+        <button onclick="executePurchase()" class="btn-gold" style="width:100%; height:46px;" id="buyCoinsBtn">
+          RECHARGE NOW & LOAD COINS
+        </button>
+      </div>
+    </div>
+
+    <!-- LUCKY WHEEL MODAL ("Get ₹200") -->
+    <div class="modal-backdrop" id="luckyWheelModal">
+      <div class="modal-sheet" style="text-align:center;">
+        <div class="modal-handle" onclick="closeLuckyWheel()"></div>
+        <div style="font-size:16px; font-weight:900; color:var(--gold-bright); margin-bottom:4px;">LUCKY TREASURE WHEEL</div>
+        <div style="font-size:11px; color:#94A3B8; margin-bottom:14px;">Spin the wheel to get instant free coins up to ₹500!</div>
+
+        <!-- Wheel Visual -->
+        <div style="position:relative; width:220px; height:220px; margin:0 auto 16px;">
+          <div id="interactiveWheel" style="width:100%; height:100%; border-radius:50%; background:conic-gradient(#FFD700 0% 12.5%, #1E3A8A 12.5% 25%, #DC2626 25% 37.5%, #047857 37.5% 50%, #7C3AED 50% 62.5%, #D97706 62.5% 75%, #0284C7 75% 87.5%, #9333EA 87.5% 100%); border:4px solid #FFF7C2; box-shadow:0 0 20px rgba(255,215,0,0.5); transition:transform 4s cubic-bezier(0.1, 1, 0.2, 1); display:flex; align-items:center; justify-content:center;">
+            <div style="width:50px; height:50px; background:var(--gold-metallic); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; font-size:12px; box-shadow:0 0 8px rgba(0,0,0,0.8);">SPIN</div>
+          </div>
+          <!-- Pointer -->
+          <div style="position:absolute; top:-6px; left:50%; transform:translateX(-50%); color:#FF2A42; font-size:32px;">▼</div>
+        </div>
+
+        <div id="wheelRewardResult" style="color:var(--win-green); font-size:14px; font-weight:900; height:22px; margin-bottom:10px;"></div>
+
+        <button onclick="spinWheelAction()" class="btn-gold" style="width:100%; height:46px;" id="wheelSpinBtn">
+          SPIN LUCKY WHEEL
+        </button>
+      </div>
+    </div>
+
+    <!-- AUTH SIGN IN / SIGN UP MODAL -->
+    <div class="modal-backdrop" id="authModal">
+      <div class="modal-sheet">
+        <div class="modal-handle" onclick="closeAuthModal()"></div>
+        <div style="text-align:center; margin-bottom:14px;">
+          <div style="font-weight:900; color:var(--gold-bright); font-size:16px;">ROYAL CASINO LOGIN</div>
+          <div style="font-size:11px; color:#94A3B8;">Sign in or create account to claim +₹200 welcome bonus</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+          <input type="text" placeholder="Mobile Phone (+91)" value="98765 43210" style="background:#070B16; border:1px solid var(--border-gold-subtle); border-radius:10px; padding:12px; color:#FFF; font-size:13px;">
+          <input type="password" placeholder="Password" value="password123" style="background:#070B16; border:1px solid var(--border-gold-subtle); border-radius:10px; padding:12px; color:#FFF; font-size:13px;">
+        </div>
+        <button onclick="performLogin()" class="btn-gold" style="width:100%; height:46px;">
+          ENTER CASINO & CLAIM BONUS
+        </button>
+      </div>
+    </div>
+
+    <!-- 24/7 SUPPORT MODAL -->
+    <div class="modal-backdrop" id="supportModal">
+      <div class="modal-sheet">
+        <div class="modal-handle" onclick="closeSupportModal()"></div>
+        <div style="font-weight:900; color:var(--gold-bright); font-size:16px; margin-bottom:4px;">24/7 VIP CONCIERGE</div>
+        <div style="font-size:11px; color:#94A3B8; margin-bottom:14px;">Instant deposit, withdrawal & gameplay live assistance.</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+          <div style="background:#070B16; border:1px solid var(--border-gold-subtle); border-radius:10px; padding:10px; display:flex; align-items:center; gap:10px;">
+            <span class="material-symbols-rounded" style="color:var(--gold-primary);">chat</span>
+            <div>
+              <div style="color:#FFF; font-weight:bold; font-size:12px;">Live Chat Concierge</div>
+              <div style="color:#94A3B8; font-size:10px;">Average reply: 30 seconds</div>
+            </div>
+          </div>
+          <div style="background:#070B16; border:1px solid var(--border-gold-subtle); border-radius:10px; padding:10px; display:flex; align-items:center; gap:10px;">
+            <span class="material-symbols-rounded" style="color:var(--gold-primary);">send</span>
+            <div>
+              <div style="color:#FFF; font-weight:bold; font-size:12px;">Official VIP Telegram</div>
+              <div style="color:#94A3B8; font-size:10px;">@RoyalTreasureVIP</div>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeSupportModal()" class="btn-gold" style="width:100%; height:42px;">START LIVE CHAT</button>
+      </div>
+    </div>
+
+    <!-- FULLSCREEN COIN SHOWER CANVAS -->
+    <canvas id="coinCanvas"></canvas>
+  </div>
+
+  <!-- PROTOTYPE DEMO TOOLBAR (Desktop Companion) -->
+  <div class="demo-controls-bar">
+    <span>💡 <b>Interactive Controls:</b></span>
+    <button onclick="addDemoCoins(5000)">+ 5,000 Coins</button>
+    <button onclick="openAviatorGame()">Play Aviator Pro</button>
+    <button onclick="openSlotsGame()">Play 777 Slots</button>
+    <button onclick="openLudoGame()">Play Royal Ludo</button>
+    <button onclick="triggerCoinRain(50)">Coin Rain FX</button>
+  </div>
+
+  <script>
+    // App State
+    let coinBalance = 25480.00;
+    let selectedRechargePrice = 499;
+    let selectedRechargeCoins = 6500;
+    let aviatorBet = 50;
+    let isAviatorFlying = false;
+    let aviatorMult = 1.00;
+    let aviatorTimer = null;
+    let activeCategory = 'Hot';
+
+    // Game Definitions matching reference images
+    const gamesDatabase = [
+      { id: 'aviator', title: 'Aviator Pro', category: 'Crash', icon: '✈️', tag: 'HOT', color: 'linear-gradient(135deg, #E50914, #6B020B)', isHot: true },
+      { id: 'ludo', title: 'Royal Ludo Cash', category: 'Games', icon: '🎲', tag: '2X WIN', color: 'linear-gradient(135deg, #EA580C, #7C2D12)', isHot: true },
+      { id: 'fortune_gems', title: 'Fortune Gems 500', category: 'Slots', icon: '💎', tag: '500X', color: 'linear-gradient(135deg, #FFB300, #E65100)', isHot: true },
+      { id: 'fly_x', title: 'FlyX', category: 'Crash', icon: '🚀', tag: 'NEW', color: 'linear-gradient(135deg, #00C9FF, #92FE9D)', isNew: true },
+      { id: 'evolution', title: 'Evolution Live', category: 'Casino', icon: '🃏', tag: 'LIVE', color: 'linear-gradient(135deg, #1E3A8A, #172554)', isHot: true },
+      { id: 'royal_777', title: 'Royal 777 Slots', category: 'Slots', icon: '7️⃣', tag: '370X', color: 'linear-gradient(135deg, #8B5CF6, #4C1D95)', isHot: true },
+      { id: 'money_coming', title: 'Money Coming', category: 'Slots', icon: '💵', tag: 'HOT', color: 'linear-gradient(135deg, #10B981, #065F46)', isHot: true },
+      { id: 'garuda', title: 'Fortune Garuda', category: 'Slots', icon: '🦅', tag: '1000X', color: 'linear-gradient(135deg, #D97706, #78350F)', isNew: true },
+      { id: 'roulette', title: 'Royal Roulette', category: 'Casino', icon: '🎯', tag: '36X', color: 'linear-gradient(135deg, #DC2626, #7F1D1D)', isHot: true },
+      { id: 'fishing', title: 'Treasure Fish', category: 'Fishing', icon: '🐠', tag: '500X', color: 'linear-gradient(135deg, #0284C7, #0369A1)' },
+      { id: 'cricket', title: 'IPL Cricket Live', category: 'Sports', icon: '🏏', tag: 'LIVE', color: 'linear-gradient(135deg, #059669, #064E3B)', isHot: true },
+    ];
+
+    // Initialize UI
+    function renderGames(cat = 'Hot') {
+      const container = document.getElementById('gamesGrid');
+      let filtered = gamesDatabase;
+      if (cat !== 'Hot') {
+        filtered = gamesDatabase.filter(g => g.category.toLowerCase() === cat.toLowerCase());
+      }
+      if (filtered.length === 0) filtered = gamesDatabase;
+
+      container.innerHTML = filtered.map(g => `
+        <div class="game-card" onclick="handleGameClick('${g.id}')">
+          <div class="game-thumb ${g.isHot ? 'hot-border' : ''}" style="background: ${g.color};">
+            <span class="game-badge ${g.isNew ? 'new' : (g.isHot ? '' : 'mult')}">${g.tag}</span>
+            <div class="game-fav-star" onclick="toggleFav(event, this)">★</div>
+            <div class="game-icon-center">${g.icon}</div>
+            <div class="game-provider">KING</div>
+          </div>
+          <div class="game-name">${g.title}</div>
+        </div>
+      `).join('');
+    }
+
+    function switchCategory(el, cat) {
+      document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+      activeCategory = cat;
+      renderGames(cat);
+    }
+
+    function switchFilter(el, type) {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      renderGames(activeCategory);
+    }
+
+    function toggleFav(e, el) {
+      e.stopPropagation();
+      el.classList.toggle('active');
+    }
+
+    function handleGameClick(id) {
+      if (id.includes('ludo')) {
+        openLudoGame();
+      } else if (id.includes('aviator') || id.includes('fly')) {
+        openAviatorGame();
+      } else {
+        openSlotsGame();
+      }
+    }
+
+    // Modal Control Functions
+    function openStoreModal() { document.getElementById('storeModal').classList.add('show'); }
+    function closeStoreModal() { document.getElementById('storeModal').classList.remove('show'); }
+    function openLuckyWheel() { document.getElementById('luckyWheelModal').classList.add('show'); }
+    function closeLuckyWheel() { document.getElementById('luckyWheelModal').classList.remove('show'); }
+    function openAuthModal() { document.getElementById('authModal').classList.add('show'); }
+    function closeAuthModal() { document.getElementById('authModal').classList.remove('show'); }
+    function openSupportModal() { document.getElementById('supportModal').classList.add('show'); }
+    function closeSupportModal() { document.getElementById('supportModal').classList.remove('show'); }
+    function closeGameModal() {
+      document.getElementById('aviatorGameModal').classList.remove('show');
+      document.getElementById('slotsGameModal').classList.remove('show');
+      document.getElementById('ludoGameModal').classList.remove('show');
+      clearInterval(aviatorTimer);
+      isAviatorFlying = false;
+    }
+
+    // Store & Coin Purchase Flow
+    function selectPackage(price, coins, el) {
+      selectedRechargePrice = price;
+      selectedRechargeCoins = coins;
+      document.querySelectorAll('.pkg-card').forEach(c => {
+        c.style.border = '1.5px solid var(--border-gold-subtle)';
+        c.style.background = '#0F172A';
+        c.style.boxShadow = 'none';
+      });
+      el.style.border = '2px solid var(--gold-primary)';
+      el.style.background = '#1E2D4D';
+      el.style.boxShadow = '0 0 12px rgba(255,215,0,0.3)';
+    }
+
+    function executePurchase() {
+      const btn = document.getElementById('buyCoinsBtn');
+      btn.innerText = 'PROCESSING UPI PAYMENT...';
+      setTimeout(() => {
+        btn.innerText = 'RECHARGE NOW & LOAD COINS';
+        closeStoreModal();
+        addDemoCoins(selectedRechargeCoins);
+        triggerCoinRain(55);
+      }, 700);
+    }
+
+    function addDemoCoins(amount) {
+      coinBalance += amount;
+      updateBalanceDisplays();
+    }
+
+    function updateBalanceDisplays() {
+      const formatted = coinBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('headerCoinBalance').innerText = formatted;
+      document.getElementById('aviatorBalance').innerText = Math.floor(coinBalance).toLocaleString('en-IN');
+      document.getElementById('slotsBalance').innerText = Math.floor(coinBalance).toLocaleString('en-IN');
+      const ludoBal = document.getElementById('ludoBalance');
+      if (ludoBal) ludoBal.innerText = Math.floor(coinBalance).toLocaleString('en-IN');
+    }
+
+    function performLogin() {
+      closeAuthModal();
+      document.getElementById('authQuickBar').innerHTML = `
+        <span style="color:var(--win-green); font-size:12px; font-weight:bold;">👑 RoyalWinner_88 (VIP 3)</span>
+      `;
+      addDemoCoins(2000);
+      triggerCoinRain(40);
+    }
+
+    // Lucky Wheel Simulation
+    let wheelAngle = 0;
+    function spinWheelAction() {
+      const wheel = document.getElementById('interactiveWheel');
+      const btn = document.getElementById('wheelSpinBtn');
+      btn.disabled = true;
+      btn.innerText = 'SPINNING...';
+
+      const spins = 5 + Math.random() * 4;
+      wheelAngle += spins * 360;
+      wheel.style.transform = `rotate(${wheelAngle}deg)`;
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerText = 'FREE DAILY SPIN';
+        const prizes = [200, 50, 500, 20, 100, 300];
+        const won = prizes[Math.floor(Math.random() * prizes.length)];
+        document.getElementById('wheelRewardResult').innerText = `🎉 WON ₹ ${won} FREE COINS!`;
+        addDemoCoins(won);
+        triggerCoinRain(40);
+      }, 4100);
+    }
+
+    // Playable Aviator Game
+    function openAviatorGame() {
+      document.getElementById('aviatorGameModal').classList.add('show');
+      resetAviatorRound();
+    }
+
+    function setAviatorBet(amt) {
+      aviatorBet = amt;
+      document.getElementById('aviatorBetDisplay').innerText = amt;
+      if (!isAviatorFlying) {
+        document.getElementById('aviatorActionBtn').innerText = `PLACE BET (🪙 ${amt})`;
+      }
+    }
+
+    function resetAviatorRound() {
+      clearInterval(aviatorTimer);
+      isAviatorFlying = false;
+      aviatorMult = 1.00;
+      const multDisplay = document.getElementById('aviatorMultiplier');
+      multDisplay.classList.remove('win');
+      multDisplay.innerText = '1.00x';
+      document.getElementById('aviatorStatusSubtitle').innerText = 'ROUND READY - HIT BET!';
+      const btn = document.getElementById('aviatorActionBtn');
+      btn.style.background = 'linear-gradient(135deg, #FF2A42, #B7091B)';
+      btn.innerText = `PLACE BET (🪙 ${aviatorBet})`;
+      document.getElementById('aviatorJet').style.bottom = '20%';
+      document.getElementById('aviatorJet').style.left = '15%';
+    }
+
+    function handleAviatorAction() {
+      if (!isAviatorFlying) {
+        // Place Bet & Start Flight
+        if (coinBalance < aviatorBet) {
+          alert('Insufficient coins! Please recharge.');
+          return;
+        }
+        coinBalance -= aviatorBet;
+        updateBalanceDisplays();
+        isAviatorFlying = true;
+
+        const btn = document.getElementById('aviatorActionBtn');
+        btn.style.background = 'linear-gradient(135deg, #00E676, #00A34C)';
+        btn.innerText = `CASH OUT (₹ ${(aviatorBet * 1.0).toFixed(1)})`;
+        document.getElementById('aviatorStatusSubtitle').innerText = 'PLANE IN FLIGHT!';
+
+        const crashPoint = 1.2 + Math.random() * 4.5;
+        const startTime = Date.now();
+
+        aviatorTimer = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          aviatorMult = Math.pow(Math.E, 0.22 * elapsed);
+          document.getElementById('aviatorMultiplier').innerText = `${aviatorMult.toFixed(2)}x`;
+          btn.innerText = `CASH OUT (₹ ${(aviatorBet * aviatorMult).toFixed(1)})`;
+
+          // Move Jet
+          const progress = Math.min((aviatorMult - 1.0) / 4.0, 0.85);
+          document.getElementById('aviatorJet').style.left = `${15 + progress * 65}%`;
+          document.getElementById('aviatorJet').style.bottom = `${20 + progress * 50}%`;
+
+          if (aviatorMult >= crashPoint) {
+            clearInterval(aviatorTimer);
+            isAviatorFlying = false;
+            document.getElementById('aviatorMultiplier').innerText = 'FLEW AWAY!';
+            document.getElementById('aviatorStatusSubtitle').innerText = `Crashed @ ${crashPoint.toFixed(2)}x`;
+            btn.style.background = '#4B5563';
+            btn.innerText = 'ROUND ENDED';
+            setTimeout(resetAviatorRound, 2500);
+          }
+        }, 50);
+
+      } else {
+        // Cash Out
+        clearInterval(aviatorTimer);
+        isAviatorFlying = false;
+        const won = aviatorBet * aviatorMult;
+        addDemoCoins(won);
+        const multDisplay = document.getElementById('aviatorMultiplier');
+        multDisplay.classList.add('win');
+        multDisplay.innerText = `WON +${won.toFixed(0)}!`;
+        document.getElementById('aviatorStatusSubtitle').innerText = `Cashed out @ ${aviatorMult.toFixed(2)}x`;
+        triggerCoinRain(45);
+        setTimeout(resetAviatorRound, 3000);
+      }
+    }
+
+    // Playable Slots Game
+    function openSlotsGame() {
+      document.getElementById('slotsGameModal').classList.add('show');
+    }
+
+    const slotSymbols = ['👑', '💎', '7️⃣', '💰', '🔔', '🍒', '🪙'];
+    function spinSlots() {
+      if (coinBalance < 20) {
+        alert('Insufficient coins!');
+        return;
+      }
+      coinBalance -= 20;
+      updateBalanceDisplays();
+
+      const btn = document.getElementById('slotSpinBtn');
+      btn.innerText = 'SPINNING...';
+      btn.disabled = true;
+
+      const r1 = document.getElementById('slotReel1');
+      const r2 = document.getElementById('slotReel2');
+      const r3 = document.getElementById('slotReel3');
+
+      let ticks = 0;
+      const timer = setInterval(() => {
+        r1.innerText = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        r2.innerText = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        r3.innerText = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        ticks++;
+        if (ticks > 16) {
+          clearInterval(timer);
+          btn.innerText = 'SPIN (🪙 20)';
+          btn.disabled = false;
+
+          // Check win
+          if (r1.innerText === r2.innerText && r2.innerText === r3.innerText) {
+            document.getElementById('slotWinStatus').innerText = '🎉 TRIPLE JACKPOT! WON +1000 COINS!';
+            addDemoCoins(1000);
+            triggerCoinRain(50);
+          } else if (r1.innerText === r2.innerText || r2.innerText === r3.innerText) {
+            document.getElementById('slotWinStatus').innerText = '✨ PAIR MATCH! WON +80 COINS!';
+            addDemoCoins(80);
+            triggerCoinRain(20);
+          } else {
+            document.getElementById('slotWinStatus').innerText = 'TRY AGAIN FOR TRIPLE CROWNS!';
+          }
+        }
+      }, 70);
+    }
+
+    // Playable Royal Ludo Cash Game
+    let ludoBet = 50;
+    let isLudoDuelActive = false;
+    let ludoRedPos = 0;
+    let ludoGreenPos = 0;
+    let isLudoRolling = false;
+    const LUDO_GOAL = 30;
+
+    function openLudoGame() {
+      document.getElementById('ludoGameModal').classList.add('show');
+      resetLudoRound();
+    }
+
+    function setLudoBet(amt) {
+      if (isLudoDuelActive) return;
+      ludoBet = amt;
+      const prize = Math.round(ludoBet * 1.95);
+      document.getElementById('ludoPrizePool').innerText = prize.toLocaleString('en-IN');
+
+      const buttons = document.querySelectorAll('#ludoBetSelectorsRow button');
+      buttons.forEach(btn => {
+        if (btn.innerText.trim() === String(amt)) {
+          btn.style.background = 'var(--gold-primary)';
+          btn.style.color = '#000';
+          btn.style.border = '1px solid #FFF';
+        } else {
+          btn.style.background = 'rgba(255,255,255,0.1)';
+          btn.style.color = '#FFF';
+          btn.style.border = '1px solid rgba(255,255,255,0.2)';
+        }
+      });
+      document.getElementById('ludoActionBtn').innerText = `START LUDO DUEL (🪙 ${amt})`;
+    }
+
+    function resetLudoRound() {
+      isLudoDuelActive = false;
+      isLudoRolling = false;
+      ludoRedPos = 0;
+      ludoGreenPos = 0;
+      document.getElementById('ludoRedScore').innerText = '0';
+      document.getElementById('ludoGreenScore').innerText = '0';
+      document.getElementById('ludoRedPos').innerText = '0';
+      document.getElementById('ludoGreenPos').innerText = '0';
+      document.getElementById('ludoPrizePool').innerText = Math.round(ludoBet * 1.95).toLocaleString('en-IN');
+      document.getElementById('ludoStatusMsg').innerText = 'Choose your bet and start the 2-Player duel!';
+      document.getElementById('ludoTurnLabel').innerText = 'READY FOR DUEL';
+      const dice = document.getElementById('ludoDiceWidget');
+      dice.innerText = '🎲';
+      dice.style.transform = 'none';
+      const btn = document.getElementById('ludoActionBtn');
+      btn.style.background = 'var(--gold-btn)';
+      btn.style.color = '#000';
+      btn.innerText = `START LUDO DUEL (🪙 ${ludoBet})`;
+    }
+
+    function handleLudoAction() {
+      if (!isLudoDuelActive) {
+        if (coinBalance < ludoBet) {
+          alert('Insufficient coins! Please recharge in the Coin Vault.');
+          return;
+        }
+        coinBalance -= ludoBet;
+        updateBalanceDisplays();
+        isLudoDuelActive = true;
+        ludoRedPos = 0;
+        ludoGreenPos = 0;
+        document.getElementById('ludoStatusMsg').innerText = '⚔️ DUEL STARTED! Roll your dice to race to 30 PTS!';
+        document.getElementById('ludoTurnLabel').innerText = 'YOUR TURN TO ROLL';
+        const btn = document.getElementById('ludoActionBtn');
+        btn.innerText = 'TAP DICE TO ROLL 🎲';
+      } else {
+        if (!isLudoRolling) {
+          rollLudoPlayerDice();
+        }
+      }
+    }
+
+    const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
+    function rollLudoPlayerDice() {
+      if (!isLudoDuelActive || isLudoRolling) return;
+      isLudoRolling = true;
+      const dice = document.getElementById('ludoDiceWidget');
+      const actionBtn = document.getElementById('ludoActionBtn');
+      document.getElementById('ludoTurnLabel').innerText = 'ROLLING...';
+      actionBtn.innerText = 'ROLLING...';
+
+      let rollTicks = 0;
+      let rot = 0;
+      const rollInterval = setInterval(() => {
+        rot += 90;
+        dice.style.transform = `rotate(${rot}deg) scale(1.15)`;
+        dice.innerText = diceFaces[Math.floor(Math.random() * 6)];
+        rollTicks++;
+
+        if (rollTicks > 8) {
+          clearInterval(rollInterval);
+          dice.style.transform = 'rotate(0deg) scale(1)';
+          const roll = Math.floor(Math.random() * 6) + 1;
+          dice.innerText = diceFaces[roll - 1];
+
+          ludoRedPos = Math.min(LUDO_GOAL, ludoRedPos + roll);
+          document.getElementById('ludoRedScore').innerText = ludoRedPos;
+          document.getElementById('ludoRedPos').innerText = ludoRedPos;
+
+          let knockout = false;
+          if (ludoRedPos === ludoGreenPos && ludoGreenPos > 0 && ludoRedPos < LUDO_GOAL) {
+            knockout = true;
+            ludoGreenPos = 0;
+            ludoRedPos = Math.min(LUDO_GOAL, ludoRedPos + 10);
+            document.getElementById('ludoGreenScore').innerText = '0';
+            document.getElementById('ludoGreenPos').innerText = '0';
+            document.getElementById('ludoRedScore').innerText = ludoRedPos;
+            document.getElementById('ludoRedPos').innerText = ludoRedPos;
+            document.getElementById('ludoStatusMsg').innerText = '💥 KNOCKOUT! You eliminated VIP Bot & gained +10 PTS bonus!';
+          } else {
+            document.getElementById('ludoStatusMsg').innerText = `🎲 You rolled a ${roll}! Position: ${ludoRedPos}/${LUDO_GOAL}`;
+          }
+
+          if (ludoRedPos >= LUDO_GOAL) {
+            handleLudoVictory();
+            return;
+          }
+
+          if (roll === 6 && !knockout) {
+            document.getElementById('ludoStatusMsg').innerText = '🎲 Rolled a 6! FREE EXTRA TURN!';
+            document.getElementById('ludoTurnLabel').innerText = 'ROLL AGAIN (EXTRA TURN)';
+            actionBtn.innerText = 'TAP DICE TO ROLL 🎲';
+            isLudoRolling = false;
+            return;
+          }
+
+          document.getElementById('ludoTurnLabel').innerText = 'VIP BOT THINKING...';
+          actionBtn.innerText = 'BOT PLAYING...';
+
+          setTimeout(() => {
+            botLudoTurn();
+          }, 1100);
+        }
+      }, 70);
+    }
+
+    function botLudoTurn() {
+      const dice = document.getElementById('ludoDiceWidget');
+      const actionBtn = document.getElementById('ludoActionBtn');
+      document.getElementById('ludoTurnLabel').innerText = 'BOT ROLLING...';
+
+      let rollTicks = 0;
+      let rot = 0;
+      const rollInterval = setInterval(() => {
+        rot += 90;
+        dice.style.transform = `rotate(${rot}deg) scale(1.15)`;
+        dice.innerText = diceFaces[Math.floor(Math.random() * 6)];
+        rollTicks++;
+
+        if (rollTicks > 8) {
+          clearInterval(rollInterval);
+          dice.style.transform = 'rotate(0deg) scale(1)';
+          const botRoll = Math.floor(Math.random() * 6) + 1;
+          dice.innerText = diceFaces[botRoll - 1];
+
+          ludoGreenPos = Math.min(LUDO_GOAL, ludoGreenPos + botRoll);
+          document.getElementById('ludoGreenScore').innerText = ludoGreenPos;
+          document.getElementById('ludoGreenPos').innerText = ludoGreenPos;
+
+          if (ludoGreenPos === ludoRedPos && ludoRedPos > 0 && ludoGreenPos < LUDO_GOAL) {
+            ludoRedPos = 0;
+            ludoGreenPos = Math.min(LUDO_GOAL, ludoGreenPos + 10);
+            document.getElementById('ludoRedScore').innerText = '0';
+            document.getElementById('ludoRedPos').innerText = '0';
+            document.getElementById('ludoGreenScore').innerText = ludoGreenPos;
+            document.getElementById('ludoGreenPos').innerText = ludoGreenPos;
+            document.getElementById('ludoStatusMsg').innerText = `⚠️ Bot rolled ${botRoll} & knocked you out!`;
+          } else {
+            document.getElementById('ludoStatusMsg').innerText = `🤖 VIP Bot rolled a ${botRoll}! Position: ${ludoGreenPos}/${LUDO_GOAL}`;
+          }
+
+          if (ludoGreenPos >= LUDO_GOAL) {
+            isLudoDuelActive = false;
+            isLudoRolling = false;
+            document.getElementById('ludoStatusMsg').innerText = '💔 VIP Bot reached the Crown first! Better luck next round!';
+            document.getElementById('ludoTurnLabel').innerText = 'BOT WON';
+            actionBtn.innerText = `PLAY AGAIN (🪙 ${ludoBet})`;
+            actionBtn.style.background = '#4B5563';
+            actionBtn.style.color = '#FFF';
+            setTimeout(resetLudoRound, 3500);
+            return;
+          }
+
+          isLudoRolling = false;
+          document.getElementById('ludoTurnLabel').innerText = 'YOUR TURN TO ROLL';
+          actionBtn.innerText = 'TAP DICE TO ROLL 🎲';
+        }
+      }, 70);
+    }
+
+    function handleLudoVictory() {
+      isLudoDuelActive = false;
+      isLudoRolling = false;
+      const prize = Math.round(ludoBet * 1.95);
+      addDemoCoins(prize);
+      document.getElementById('ludoStatusMsg').innerText = `🏆 ROYAL VICTORY! YOU REACHED THE CROWN & WON +${prize.toLocaleString('en-IN')} COINS!`;
+      document.getElementById('ludoTurnLabel').innerText = 'YOU WON!';
+      const actionBtn = document.getElementById('ludoActionBtn');
+      actionBtn.innerText = `VICTORY! +${prize} COINS`;
+      actionBtn.style.background = 'linear-gradient(135deg, #00E676, #00A34C)';
+      actionBtn.style.color = '#000';
+      triggerCoinRain(60);
+      setTimeout(resetLudoRound, 4000);
+    }
+
+    // Bottom Nav Switching
+    function switchBottomNav(idx) {
+      document.querySelectorAll('.nav-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+      if (idx === 1) {
+        alert('Promotions & 7-Day Daily Streak Center');
+      } else if (idx === 2) {
+        alert('Refer & Earn ₹500 + 10% Lifetime Rebate');
+      } else if (idx === 3) {
+        alert('VIP Player Account & Transaction Records');
+      }
+    }
+
+    function toggleSoundEffect(el) {
+      const icon = el.querySelector('.material-symbols-rounded');
+      if (icon.innerText === 'volume_up') {
+        icon.innerText = 'volume_off';
+      } else {
+        icon.innerText = 'volume_up';
+      }
+    }
+
+    // Ticker Auto-cycle
+    const notices = [
+      'player_7842 successfully withdraw ₹ 2,000',
+      '79******49 successfully withdraw ₹ 3,000',
+      'rahul_win88 hit 25.4X in Aviator Pro ₹ 12,700',
+      'vip_tiger7 hit Mega Jackpot in Fortune Gems ₹ 45,000',
+      'priya_88 cashed out at 48.2X in FlyX ₹ 24,100',
+    ];
+    let tickerIdx = 0;
+    setInterval(() => {
+      tickerIdx = (tickerIdx + 1) % notices.length;
+      document.getElementById('liveTickerText').innerText = notices[tickerIdx];
+    }, 4000);
+
+    // Golden Coin Rain Particle Simulation
+    const canvas = document.getElementById('coinCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerCoinRain(count = 40) {
+      resizeCanvas();
+      particles = [];
+      const colors = ['#FFD700', '#FFF3B0', '#F5B014', '#D49B28', '#FFE082'];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 60,
+          y: canvas.height * 0.45,
+          vx: (Math.random() - 0.5) * 14,
+          vy: -8 - Math.random() * 8,
+          gravity: 0.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 8 + Math.random() * 6,
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 15,
+          alpha: 1.0,
+        });
+      }
+      animateParticles();
+    }
+
+    let animFrame = null;
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = 0;
+
+      for (let p of particles) {
+        if (p.alpha <= 0) continue;
+        alive++;
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.rotation += p.rotSpeed;
+        if (p.y > canvas.height * 0.6) {
+          p.alpha -= 0.02;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.globalAlpha = Math.max(0, p.alpha);
+
+        // Draw 3D gold coin
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#B87B00';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      if (alive > 0) {
+        animFrame = requestAnimationFrame(animateParticles);
+      }
+    }
+
+    // Initial render
+    renderGames('Hot');
+    updateBalanceDisplays();
+  </script>
+</body>
+</html>
